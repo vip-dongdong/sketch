@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" ng-app='sketch'>
+<head>
+	<meta charset="UTF-8">
+	<title>angular-sketch</title>
+
+	<link rel="stylesheet" href="./css/index.css">
+	<script src='js/angular.js'></script>
+	<script src='js/index.js'></script>
+	
+
+</head>
+<body ng-controller="sketchController">
+	<div class="left">
+		<h6 class='title'>简易画板</h6>
+		<!-- 工具的使用 -->
+		<ul>
+			<li ng-repeat="(key, value) in tools track by $index" ng-click='settool(value)' ng-class='{active:value==tool,m:over}' ng-mouseover="over=true" ng-mouseleave="over=false">
+				<span>{{key}}</span>
+			</li>
+ 		</ul>
+
+		<hr>
+		<div class="du"> 
+ 			<div class='float' ng-class="{active:csState.style=='fill'}" ng-click="setStyle('fill')">
+			填充：
+			</div>
+			<div class="color">
+				<input type="color" ng-model="csState.fillStyle">
+			</div>
+		</div>	
+
+		<div class="du">
+ 			<div class='float' ng-class="{active:csState.style=='stroke'}" ng-click="setStyle('stroke')">
+			描边：
+			</div>
+			<div class="color">
+				<input type="color" ng-model="csState.strokeStyle">
+			</div>
+			
+		</div>
+ 		
+
+
+		<hr>
+		<div class="du"  ng-click='newSketch()'>新建</div>
+		<a class="du" ng-click='save($event)'>保存</a>
+		<div class="du">回退</div>
+  		<hr>
+		 
+
+
+		<div class="du">宽度：
+			<input type="range" min='200' max='1400' step='1' ng-model='canvasWH.width'><!-- 滑动的条条 -->
+		</div>
+		 
+		<div class="du">高度：
+			<input type="range" min='200' max='1200' step='1' ng-model='canvasWH.height'><!-- 滑动的条条 -->
+		</div>
+		<div class="du">线宽：
+		<input ng-model='csState.lineWidth'   type="range" min='1' max='30' step='1'>
+		</div>
+
+	</div><!-- left结束 -->
+	<div class="right">
+		<canvas width='{{canvasWH.width}}' height='{{canvasWH.height}}' id='canvas'></canvas>
+		
+	</div><!-- right结束 -->
+
+	
+</body>
+</html>
